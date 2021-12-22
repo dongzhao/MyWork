@@ -1,0 +1,16 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/MyWork.Core/obj/Debug
+/.vs
+/MyWork.Model/obj/Debug
+/MyWork.Model/T4Template/ApiControllerTemplate.cs
+/MyWork.Model/T4Template/IRepositoryTemplate.cs
+/MyWork.Model/T4Template/ModelHelper.cs
+/MyWork.Model/T4Template/ModelPersistentTestTemplate.cs
+/MyWork.Model/T4Template/RepositoryTemplate.cs
+*.user
+/MyWork.Model.UnitTest/obj/Debug
+/MyWork.Web/obj/Debug
+/packages

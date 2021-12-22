@@ -1,0 +1,107 @@
+<#@ template debug="true" hostspecific="true" language="C#" #>
+
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)MyWork.model\bin\Debug\MyWork.Model.dll" #>
+<#@ assembly name="$(SolutionDir)MyWork.model\bin\Debug\MyWork.Core.dll" #>
+
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="MyWork.Model" #>
+<#@ import namespace="MyWork.Core" #>
+
+<#@ output extension=".cs" #>
+
+<#@ include file="ModelHelper.tt" #>
+
+<#
+    var modelPath = getSolutionUrl() + @"\MyWork.Model\bin\Debug\MyWork.Model.dll";
+    var asse = Assembly.LoadFrom(modelPath);
+    var typeList = asse.GetTypes();
+    var myNameSpace = "MyWork";
+    var contextName = "MyWorkDbContext";
+
+    // beginning of looping class
+    foreach(var type in typeList)
+    {
+        if(!typeof(IEntity<int>).IsAssignableFrom(type) || type.IsAbstract || type.IsInterface || !type.IsClass){
+            continue;
+        }
+        var className = type.Name;
+#>
+/**
+Generated class by codegen 
+*/
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using <#=myNameSpace#>.Model;
+using System;
+using System.Data;
+using System.Data.Entity;
+using System.Linq;
+using System.Text;
+using System.Collections.Generic;
+using SYstem.Threading.Tasks;
+using Newtonsoft.Json;
+using System.IO;
+
+namespace <#=myNameSpace#>.Model.PersistentTest
+{
+    [TestClass]
+    public class <#=className#>PersistTest
+    {
+        [TestInitialize]
+        public void Setup()
+        {
+        }
+
+        [TestCleanup]
+        public void TearDown()
+        {
+        }
+
+        [TestMethod]
+        public void TestPersist<#=className.ToLower()#>()
+        {
+            var expected = CreateNew();
+            using (var ctx = new <#=contextName#>())
+            {
+                ctx.<#=className#>Set.Add(expected);
+                ctx.SaveChanges();
+
+                var actural = ctx.<#=className#>Set.SingleOrDefault(e => e.Id == expected.Id);
+                Assert.IsNotNull(actural);
+<#
+        // to lool each field property for generating methods
+        foreach(PropertyInfo pi in type.GetProperties())
+        {
+            var fieldName = pi.Name;
+            var fieldType = pi.PropertyType.FullName;
+            if(fieldName == "Id" || fieldType.IndexOf(myNameSpace+".Model.")>=0){
+                // to skip the field from Model namespace
+                continue;
+            }
+#>
+                Assert.AreEqual(expected.<#=fieldName#>, actural.<#=fieldName#>);
+<#
+        }
+#>
+            }
+        }
+
+        private <#=className#> CreateNew()
+        {
+            var jsonStr = File.ReadAllText(@"json\" + "<#=className#>.json");
+            return JsonConvert.DeserializeObject<<#=className#>>(jsonStr);
+        }
+    }
+}
+
+<#
+        SaveOutput(@"..\..\" + myNameSpace +@".Model.UnitTest\generated\" + className + "PersistentTest.cs");
+    }
+    // end of looping class
+#>

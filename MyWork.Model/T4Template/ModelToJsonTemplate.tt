@@ -1,0 +1,43 @@
+<#@ template debug="true" hostspecific="true" language="C#" #>
+
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="$(SolutionDir)MyDecisionTree.model\bin\Debug\MyDecisionTree.Model.dll" #>
+<#@ assembly name="$(SolutionDir)MyDecisionTree.model\bin\Debug\MyDecisionTree.Core.dll" #>
+
+<#@ import namespace="System" #>
+<#@ import namespace="System.Linq" #>
+<#@ import namespace="System.Text" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Reflection" #>
+<#@ import namespace="MyDecisionTree.Model" #>
+<#@ import namespace="MyDecisionTree.Core" #>
+<#@ import namespace="Newtonsoft.Json" #>
+
+<#@ output extension=".txt" #>
+
+<#@ include file="ModelHelper.tt" #>
+
+<#
+    var modelPath = getSolutionUrl() + @"\MyDecisionTree.Model\bin\Debug\MyDecisionTree.Model.dll";
+    var asse = Assembly.LoadFrom(modelPath);
+    var typeList = asse.GetTypes();
+    var myNameSpace = "MyDecisionTree";
+    var contextName = "MyDecisionTreeDbContext";
+
+    // beginning of looping class
+    foreach(var type in typeList)
+    {
+        if(!typeof(IEntity).IsAssignableFrom(type) || type.IsAbstract || type.IsInterface || !type.IsClass){
+            continue;
+        }
+        var className = type.Name;
+        var jsonStr = ToJson(type);
+#>
+<#=jsonStr#>
+<#
+        SaveOutput(@"..\..\" + myNameSpace +".Model.UnitTest\generated\json\template" + className + ".json");
+    }
+    // end of looping class
+#>
