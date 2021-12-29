@@ -1,0 +1,9 @@
+{
+  "Id": 1,
+  "UserProfileId": 2,
+  "UserName": "admin",
+  "Password": "admin",
+  "EmailAddress": "abc@test.com",
+  "UserProfile": null,
+  "Roles": []
+}

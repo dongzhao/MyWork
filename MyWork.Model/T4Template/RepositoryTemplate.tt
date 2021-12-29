@@ -60,7 +60,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using SYstem.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace <#=myNameSpace#>.Repository
 {
@@ -73,6 +73,9 @@ namespace <#=myNameSpace#>.Repository
 
         public void Delete(<#=fieldIdType#> id){
             var <#=className.ToLower()#> = ctx.<#=className#>Set.SingleOrDefault(e => e.Id == id);
+            if(ctx.Entry(<#=className.ToLower()#>).State == EntityState.Detached){
+                ctx.<#=className#>Set.Attach(<#=className.ToLower()#>);
+            };
             ctx.<#=className#>Set.Remove(<#=className.ToLower()#>);
             ctx.SaveChanges();
         }
@@ -110,12 +113,11 @@ foreach(var name in included){
             return <#=className.ToLower()#>.Id;
         }
 
-        public <#=fieldIdType#> Update(<#=className#> <#=className.ToLower()#>)
+        public void Update(<#=className#> <#=className.ToLower()#>)
         {
-            ctx.<#=className#>Set.Add(<#=className.ToLower()#>);
+            ctx.<#=className#>Set.Attach(<#=className.ToLower()#>);
             ctx.Entry(<#=className.ToLower()#>).State = EntityState.Modified;
             ctx.SaveChanges();
-            return <#=className.ToLower()#>.Id;
         }
  <#
         // to lool each field property for generating methods

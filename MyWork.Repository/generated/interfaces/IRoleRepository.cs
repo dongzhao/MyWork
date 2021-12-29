@@ -4,11 +4,10 @@
 using MyWork.Model;
 using System;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using SYstem.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {

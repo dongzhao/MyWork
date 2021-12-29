@@ -10,7 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using SYstem.Threading.Tasks;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 using System.IO;
 
@@ -40,6 +40,8 @@ namespace MyWork.Model.PersistentTest
 
                 var actural = ctx.UserSet.SingleOrDefault(e => e.Id == expected.Id);
                 Assert.IsNotNull(actural);
+
+                Assert.AreEqual(expected.UserProfileId, actural.UserProfileId);
 
                 Assert.AreEqual(expected.UserName, actural.UserName);
 

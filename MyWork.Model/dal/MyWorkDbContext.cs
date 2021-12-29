@@ -31,7 +31,6 @@ namespace MyWork.Model
                 .WithMany(e => e.Permissions)
                 .Map(m => m.ToTable("role_permission").MapLeftKey("permission_Id").MapRightKey("role_Id"));
 
-
             base.OnModelCreating(modelBuilder);
         }
 
@@ -40,6 +39,6 @@ namespace MyWork.Model
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<Role> RoleSet { get; set; }
         public virtual DbSet<Permission> PermissionSet { get; set; }
-        //public virtual Dbset<UserProfile> UserProfileSet { get; set; }
+        public virtual DbSet<UserProfile> UserProfileSet { get; set; }
     }
 }

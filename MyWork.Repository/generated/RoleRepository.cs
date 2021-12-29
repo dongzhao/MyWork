@@ -9,7 +9,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using SYstem.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
@@ -22,6 +22,9 @@ namespace MyWork.Repository
 
         public void Delete(int id){
             var role = ctx.RoleSet.SingleOrDefault(e => e.Id == id);
+            if(ctx.Entry(role).State == EntityState.Detached){
+                ctx.RoleSet.Attach(role);
+            };
             ctx.RoleSet.Remove(role);
             ctx.SaveChanges();
         }
@@ -47,12 +50,11 @@ namespace MyWork.Repository
             return role.Id;
         }
 
-        public int Update(Role role)
+        public void Update(Role role)
         {
-            ctx.RoleSet.Add(role);
+            ctx.RoleSet.Attach(role);
             ctx.Entry(role).State = EntityState.Modified;
             ctx.SaveChanges();
-            return role.Id;
         }
  
         public IEnumerable<Role> SearchByShortName(System.String shortname)

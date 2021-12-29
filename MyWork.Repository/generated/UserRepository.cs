@@ -9,7 +9,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using SYstem.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
@@ -22,6 +22,9 @@ namespace MyWork.Repository
 
         public void Delete(int id){
             var user = ctx.UserSet.SingleOrDefault(e => e.Id == id);
+            if(ctx.Entry(user).State == EntityState.Detached){
+                ctx.UserSet.Attach(user);
+            };
             ctx.UserSet.Remove(user);
             ctx.SaveChanges();
         }
@@ -30,12 +33,16 @@ namespace MyWork.Repository
         {
             return ctx.UserSet
 
+            .Include(e => e.UserProfile)
+
             .ToList();
         }
 
         public User GetById(int id)
         {
             return ctx.UserSet
+
+            .Include(e => e.UserProfile)
 
             .SingleOrDefault(e => e.Id == id);
         }
@@ -47,17 +54,18 @@ namespace MyWork.Repository
             return user.Id;
         }
 
-        public int Update(User user)
+        public void Update(User user)
         {
-            ctx.UserSet.Add(user);
+            ctx.UserSet.Attach(user);
             ctx.Entry(user).State = EntityState.Modified;
             ctx.SaveChanges();
-            return user.Id;
         }
  
         public IEnumerable<User> SearchByUserName(System.String username)
         {
             return ctx.UserSet
+
+            .Include(e => e.UserProfile)
 
             .Where(e => e.UserName == username).ToList();            
         }                
@@ -65,6 +73,8 @@ namespace MyWork.Repository
         public IEnumerable<User> SearchByEmailAddress(System.String emailaddress)
         {
             return ctx.UserSet
+
+            .Include(e => e.UserProfile)
 
             .Where(e => e.EmailAddress == emailaddress).ToList();            
         }                

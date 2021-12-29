@@ -1,15 +1,16 @@
 <#@ template debug="true" hostspecific="true" language="C#" #>
+
 <#@ assembly name="$(SolutionDir)MyWork.Model\bin\Debug\MyWork.Model.dll" #>
-<#@ assembly name="$(SolutionDir)MyWork.Model\bin\Debug\Newtonsoft.Json.dll" #>
 <#@ assembly name="EnvDTE" #>
-<#@ assembly name="System.Data.Entity" #>
+<#@ assembly name="System" #>
+<#@ assembly name="System.Core" #>
+
 <#@ import namespace="EnvDTE" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Reflection" #>
-<#@ import namespace="Newtonsoft.Json" #>
 <#@ output extension=".cs" #>
 <#+
 public string getTypeOfIdField(){
@@ -28,12 +29,7 @@ public void SaveOutput(string outputFileName){
     File.WriteAllText(outputFilePath, this.GenerationEnvironment.ToString());
     this.GenerationEnvironment.Remove(0, this.GenerationEnvironment.Length);
 }
-/*
-public string ToJson(Type type){
-    Object obj = Activator.CreateInstance(type);
-    return JsonConvertor.SerializeObject(obj);
-}
-*/
+
 public static string Transform(string fieldType){
     if(fieldType == typeof(String).FullName){
         return "Convert.ToString";

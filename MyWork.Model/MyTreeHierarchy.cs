@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MyWork.Model
 {
-    [Table("my_hierarchy_tree")]
+    [Table("tree.my_hierarchytree")]
     public class MyTreeHierarchy
     {
         [Key]

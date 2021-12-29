@@ -1,11 +1,10 @@
-<#@ template debug="true" hostspecific="true" language="C#" #>
+<#@ template debug="false" hostspecific="true" language="C#" #>
 
 <#@ assembly name="System" #>
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)MyWork.Model\bin\Debug\MyWork.Model.dll" #>
 <#@ assembly name="$(SolutionDir)MyWork.model\bin\Debug\MyWork.Core.dll" #>
 <#@ assembly name="EnvDTE" #>
-<#@ assembly name="System.Data.Entity" #>
 
 <#@ import namespace="System" #>
 <#@ import namespace="System.Linq" #>
@@ -15,7 +14,6 @@
 <#@ import namespace="System.Reflection" #>
 <#@ import namespace="MyWork.Model" #>
 <#@ import namespace="MyWork.Core" #>
-<#@ import namespace="Newtonsoft.Json" #>
 <#@ output extension=".cs" #>
 <#@ include file="ModelHelper.tt" #>
 <#
@@ -59,11 +57,10 @@
 using <#=myNameSpace#>.Model;
 using System;
 using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Collections.Generic;
-using SYstem.Threading.Tasks;
+using System.Threading.Tasks;
 
 namespace <#=myNameSpace#>.Repository
 {

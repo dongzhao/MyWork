@@ -4,7 +4,6 @@
 <#@ assembly name="System.Core" #>
 <#@ assembly name="$(SolutionDir)MyWork.model\bin\Debug\MyWork.Model.dll" #>
 <#@ assembly name="$(SolutionDir)MyWork.model\bin\Debug\MyWork.Core.dll" #>
-<#@ assembly name="System.Data.Entity" #>
 
 <#@ import namespace="System" #>
 <#@ import namespace="System.Linq" #>
@@ -67,27 +66,27 @@ using System.Web.Http;
 using System.ComponentModel.DataAnnotations;
 using NLog;
 
-namespace <#=myNameSpace#>.Web.Controller
+namespace <#=myNameSpace#>.WebAPI.Controllers
 {
     [Route("api/v1/<#=className.ToLower()#>")]
-    public class <#=className#>ApiController : ControllerBase
+    public class <#=className#>ApiController : BaseController
     {
         private readonly I<#=className#>Repository <#=className.ToLower()#>Repository;
         private static readonly Logger logger = LogManager.GetCurrentClassLogger();
 
-        public <#=className#>Controller(I<#=contextName#>Repository rs){
+        public <#=className#>ApiController(I<#=className#>Repository rs){
             this.<#=className.ToLower()#>Repository = rs;
         }
 
         [HttpGet]
-        [(Route("getall"))]
-        [Display(Description = "Get All <#=className#>>")]
-        public HttpResponseMessage GetAll()
+        [Route("getall")]
+        [Display(Description = "Get All <#=className#>")]
+        public IHttpActionResult GetAll()
         {
             try
             {
                 var results = <#=className.ToLower()#>Repository.GetAll();
-                return Request.CreateResponse<List<<#=className#>>>(HttpStatusCode.OK, results);
+                return Json(results);
             }
             catch(Exception ex)
             {
@@ -97,14 +96,14 @@ namespace <#=myNameSpace#>.Web.Controller
         }
 
         [HttpGet]
-        [(Route("get/{id}"))]
-        [Display(Description = "Get <#=className#>> by id value")]
-        public HttpResponseMessage Get(<#=fieldIdType#> id)
+        [Route("get/{id}")]
+        [Display(Description = "Get <#=className#> by id value")]
+        public IHttpActionResult Get(<#=fieldIdType#> id)
         {
             try
             {
                 var result = <#=className.ToLower()#>Repository.GetById(id);
-                return Request.CreateResponse<<#=className#>>(HttpStatusCode.OK, result);
+                return Json(result);
             }
             catch(Exception ex)
             {
@@ -114,14 +113,14 @@ namespace <#=myNameSpace#>.Web.Controller
         }
 
         [HttpPost]
-        [(Route("create"))]
-        [Display(Description = "create a new <#=className#>> )]
-        public HttpResponseMessage Create(<#=className#> <#=className.ToLower()#>)
+        [Route("create")]
+        [Display(Description = "create a new <#=className#>")]
+        public IHttpActionResult Create(<#=className#> <#=className.ToLower()#>)
         {
             try
             {
                 var result = <#=className.ToLower()#>Repository.Create(<#=className.ToLower()#>);
-                return Request.CreateResponse<<#=fieldIdType#>>(HttpStatusCode.OK, result);
+                return Json(result);
             }
             catch(Exception ex)
             {
@@ -131,14 +130,14 @@ namespace <#=myNameSpace#>.Web.Controller
         }
 
         [HttpPost]
-        [(Route("update"))]
-        [Display(Description = "update existing <#=className#>> )]
-        public HttpResponseMessage Update(<#=className#> <#=className.ToLower()#>)
+        [Route("update")]
+        [Display(Description = "update existing <#=className#>")]
+        public IHttpActionResult Update(<#=className#> <#=className.ToLower()#>)
         {
             try
             {
-                var result = <#=className.ToLower()#>Repository.Update(<#=className.ToLower()#>);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                <#=className.ToLower()#>Repository.Update(<#=className.ToLower()#>);
+                return Json(HttpStatusCode.OK);
             }
             catch(Exception ex)
             {
@@ -148,14 +147,14 @@ namespace <#=myNameSpace#>.Web.Controller
         }
 
         [HttpDelete]
-        [(Route("delete/{id}"))]
-        [Display(Description = "delete existing <#=className#>> by id value)]
-        public HttpResponseMessage Delete(<#=fieldIdType#> id)
+        [Route("delete/{id}")]
+        [Display(Description = "delete existing <#=className#> by id")]
+        public IHttpActionResult Delete(<#=fieldIdType#> id)
         {
             try
             {
-                var result = <#=className.ToLower()#>Repository.Delete(id);
-                return Request.CreateResponse(HttpStatusCode.OK);
+                <#=className.ToLower()#>Repository.Delete(id);
+                return Json(HttpStatusCode.OK);
             }
             catch(Exception ex)
             {
@@ -187,14 +186,14 @@ namespace <#=myNameSpace#>.Web.Controller
                     if(propTypeName == typeof(DateTime).FullName){
  #>
         [HttpGet]
-        [(Route("query/<#=fieldName.ToLower()#>/{fromDate}/{toDate}"))]
-        [Display(Description = "query <#=className#>> by datetime)]
-        public HttpResponseMessage Query<#=fieldName#>(<#=propTypeName#> fromDate, <#=propTypeName#> toDate)
+        [Route("query/<#=fieldName.ToLower()#>/{fromDate}/{toDate}")]
+        [Display(Description = "query <#=className#> by datetime")]
+        public IHttpActionResult Query<#=fieldName#>(<#=propTypeName#> fromDate, <#=propTypeName#> toDate)
         {
             try
             {
                 var results = <#=className.ToLower()#>Repository.SearchBy<#=fieldName#>(fromDate, toDate);
-                return Request.CreateResponse<List<<#=className#>>>(HttpStatusCode.OK, results);
+                return Json(results);
             }
             catch(Exception ex)
             {
@@ -206,14 +205,14 @@ namespace <#=myNameSpace#>.Web.Controller
                     }else{
  #>
         [HttpGet]
-        [(Route("query/<#=fieldName.ToLower()#>/{<#=fieldName.ToLower()#>}"))]
-        [Display(Description = "query <#=className#>> by <#=fieldName.ToLower()#> value)]
-        public HttpResponseMessage Query<#=fieldName#>(<#=propTypeName#> <#=fieldName.ToLower()#>)
+        [Route("query/<#=fieldName.ToLower()#>/{<#=fieldName.ToLower()#>}")]
+        [Display(Description = "query <#=className#> by <#=fieldName.ToLower()#> value")]
+        public IHttpActionResult Query<#=fieldName#>(<#=propTypeName#> <#=fieldName.ToLower()#>)
         {
             try
             {
                 var results = <#=className.ToLower()#>Repository.SearchBy<#=fieldName#>(<#=fieldName.ToLower()#>);
-                return Request.CreateResponse<List<<#=className#>>>(HttpStatusCode.OK, results);
+                return Json(results);
             }
             catch(Exception ex)
             {
@@ -232,7 +231,7 @@ namespace <#=myNameSpace#>.Web.Controller
 }
 
 <#
-        SaveOutput(@"..\..\" + myNameSpace +@".Web\Controllers\Api\generated\" + className + "ApiController.cs");
+        SaveOutput(@"..\..\" + myNameSpace +@".WebAPI\Controllers\generated\" + className + "ApiController.cs");
     }
     // end of looping class
 #>

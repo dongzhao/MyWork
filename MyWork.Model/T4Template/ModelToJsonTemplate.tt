@@ -1,43 +1,41 @@
-<#@ template debug="true" hostspecific="true" language="C#" #>
-
+<#@ template debug="false" hostspecific="true" language="C#" #>
 <#@ assembly name="System" #>
 <#@ assembly name="System.Core" #>
-<#@ assembly name="$(SolutionDir)MyDecisionTree.model\bin\Debug\MyDecisionTree.Model.dll" #>
-<#@ assembly name="$(SolutionDir)MyDecisionTree.model\bin\Debug\MyDecisionTree.Core.dll" #>
-
+<#@ assembly name="$(SolutionDir)MyWork.model\bin\Debug\MyWork.Model.dll" #>
+<#@ assembly name="$(SolutionDir)MyWork.model\bin\Debug\MyWork.Core.dll" #>
+<#@ assembly name="Newtonsoft.Json" #>
 <#@ import namespace="System" #>
 <#@ import namespace="System.Linq" #>
 <#@ import namespace="System.Text" #>
 <#@ import namespace="System.Collections.Generic" #>
 <#@ import namespace="System.IO" #>
 <#@ import namespace="System.Reflection" #>
-<#@ import namespace="MyDecisionTree.Model" #>
-<#@ import namespace="MyDecisionTree.Core" #>
+<#@ import namespace="MyWork.Model" #>
+<#@ import namespace="MyWork.Core" #>
+
 <#@ import namespace="Newtonsoft.Json" #>
-
 <#@ output extension=".txt" #>
-
 <#@ include file="ModelHelper.tt" #>
-
 <#
-    var modelPath = getSolutionUrl() + @"\MyDecisionTree.Model\bin\Debug\MyDecisionTree.Model.dll";
+    var myNameSpace = "MyWork";
+    var contextName = myNameSpace + "DbContext";
+    var modelPath = getSolutionUrl() + @"\" + myNameSpace + @".Model\bin\Debug\" + myNameSpace + ".Model.dll";
     var asse = Assembly.LoadFrom(modelPath);
     var typeList = asse.GetTypes();
-    var myNameSpace = "MyDecisionTree";
-    var contextName = "MyDecisionTreeDbContext";
-
     // beginning of looping class
     foreach(var type in typeList)
     {
-        if(!typeof(IEntity).IsAssignableFrom(type) || type.IsAbstract || type.IsInterface || !type.IsClass){
+        if(!typeof(IEntity<int>).IsAssignableFrom(type) || type.IsAbstract || type.IsInterface || !type.IsClass){
             continue;
         }
         var className = type.Name;
-        var jsonStr = ToJson(type);
+        Object obj = Activator.CreateInstance(type);
+        var jsonStr = JsonConvert.SerializeObject(obj);
+        //var jsonStr = "";
 #>
 <#=jsonStr#>
 <#
-        SaveOutput(@"..\..\" + myNameSpace +".Model.UnitTest\generated\json\template" + className + ".json");
+        SaveOutput(@"..\..\" + myNameSpace + @".Model.UnitTest\generated\json\temp\" + className + ".json");
     }
     // end of looping class
 #>
