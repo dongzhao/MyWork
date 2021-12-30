@@ -19,3 +19,8 @@
 /MyWork.Web/bin
 /MyWork.WebAPI/bin
 /MyWork.WebAPI/obj/Debug
+/MyWork.Core/bin/Debug
+/MyWork.Model/bin/Debug
+/MyWork.Model.UnitTest/bin/Debug
+/MyWork.Repository/bin/Debug
+/MyWork.Repository.UnitTest/bin/Debug

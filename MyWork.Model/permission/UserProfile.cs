@@ -20,9 +20,9 @@ namespace MyWork.Model
         [ModelAttribute(Searchable = true)]
         public string LastName { get; set; }
         [ModelAttribute(Searchable = true)]
-        public Boolean Gender { get; set; }
+        public Boolean? Gender { get; set; } = null;
         [ModelAttribute(Searchable = true)]
-        public DateTime BirthDate { get; set; }
+        public DateTime? BirthDate { get; set; } = null;
         [ModelAttribute(Searchable = true)]
         public string Mobile { get; set; }
         [ModelAttribute(Searchable = true)]

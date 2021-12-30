@@ -62,10 +62,25 @@
     <Compile Include="permission\Role.cs" />
     <Compile Include="permission\User.cs" />
     <Compile Include="permission\UserProfile.cs" />
+    <Compile Include="T4Template\IRepositoryTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IRepositoryTemplate.tt</DependentUpon>
+    </Compile>
     <Compile Include="T4Template\ModelHelper.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>ModelHelper.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4Template\ModelPersistentTestTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelPersistentTestTemplate.tt</DependentUpon>
+    </Compile>
+    <Compile Include="T4Template\RepositoryTemplate.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>RepositoryTemplate.tt</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -81,14 +96,23 @@
   <ItemGroup>
     <Content Include="T4Template\ApiControllerTemplate - Copy.tt" />
     <Content Include="T4Template\ApiControllerTemplate.tt" />
-    <Content Include="T4Template\IRepositoryTemplate.tt" />
+    <Content Include="T4Template\IRepositoryTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>IRepositoryTemplate.cs</LastGenOutput>
+    </Content>
     <Content Include="T4Template\ModelHelper.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>ModelHelper.cs</LastGenOutput>
     </Content>
-    <Content Include="T4Template\ModelPersistentTestTemplate.tt" />
+    <Content Include="T4Template\ModelPersistentTestTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>ModelPersistentTestTemplate.cs</LastGenOutput>
+    </Content>
     <Content Include="T4Template\ModelToJsonTemplate.tt" />
-    <Content Include="T4Template\RepositoryTemplate.tt" />
+    <Content Include="T4Template\RepositoryTemplate.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>RepositoryTemplate.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -54,10 +54,10 @@ namespace MyWork.Repository.UnitTest
             };
             obj.FirstName = obj.FirstName + "_upd";
             obj.LastName = obj.LastName + "_upd";
-            obj.Gender = obj.Gender ? false : true ;
+            obj.Gender = obj.Gender.HasValue && obj.Gender.Value ? false : true ;
             obj.Mobile = obj.Mobile + "9";
             obj.Address = obj.Address + "_upd";
-            obj.BirthDate = obj.BirthDate.AddDays(1);
+            obj.BirthDate = obj.BirthDate.HasValue ? obj.BirthDate.Value.AddDays(1) : DateTime.Now;
             repository.Update(obj);
 
             obj = repository.GetById(obj.Id);
