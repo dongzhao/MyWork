@@ -64,15 +64,23 @@ using System.Threading.Tasks;
 
 namespace <#=myNameSpace#>.Repository
 {
-    public class <#=className#>Repository : AbstractRepository<<#=className#>, int>, I<#=className#>Repository
+    public class <#=className#>Repository : I<#=className#>Repository
     {
-        //protected readonly <#=contextName#> ctx;
-
-        public <#=className#>Repository(<#=contextName#> context) : base(context)
-        {
+        protected readonly <#=contextName#> ctx;
+        public <#=className#>Repository(<#=contextName#> context){
+            this.ctx = context;
         }
 
-        public IEnumerable<<#=className#>> SearchAll()
+        public void Delete(<#=fieldIdType#> id){
+            var <#=className.ToLower()#> = ctx.<#=className#>Set.SingleOrDefault(e => e.Id == id);
+            if(ctx.Entry(<#=className.ToLower()#>).State == EntityState.Detached){
+                ctx.<#=className#>Set.Attach(<#=className.ToLower()#>);
+            };
+            ctx.<#=className#>Set.Remove(<#=className.ToLower()#>);
+            ctx.SaveChanges();
+        }
+
+        public IEnumerable<<#=className#>> GetAll()
         {
             return ctx.<#=className#>Set
 <#
@@ -85,7 +93,7 @@ foreach(var name in included){
             .ToList();
         }
 
-        public <#=className#> SearchById(<#=fieldIdType#> id)
+        public <#=className#> GetById(<#=fieldIdType#> id)
         {
             return ctx.<#=className#>Set
 <#
@@ -96,6 +104,20 @@ foreach(var name in included){
 }
 #>
             .SingleOrDefault(e => e.Id == id);
+        }
+
+        public <#=fieldIdType#> Create(<#=className#> <#=className.ToLower()#>)
+        {
+            ctx.<#=className#>Set.Add(<#=className.ToLower()#>);
+            ctx.SaveChanges();
+            return <#=className.ToLower()#>.Id;
+        }
+
+        public void Update(<#=className#> <#=className.ToLower()#>)
+        {
+            ctx.<#=className#>Set.Attach(<#=className.ToLower()#>);
+            ctx.Entry(<#=className.ToLower()#>).State = EntityState.Modified;
+            ctx.SaveChanges();
         }
  <#
         // to lool each field property for generating methods

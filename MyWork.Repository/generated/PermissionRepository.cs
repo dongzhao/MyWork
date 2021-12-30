@@ -47,48 +47,26 @@ using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
-    public class PermissionRepository : IPermissionRepository
+    public class PermissionRepository : AbstractRepository<Permission, int>, IPermissionRepository
     {
-        protected readonly MyWorkDbContext ctx;
-        public PermissionRepository(MyWorkDbContext context){
-            this.ctx = context;
+        //protected readonly MyWorkDbContext ctx;
+
+        public PermissionRepository(MyWorkDbContext context) : base(context)
+        {
         }
 
-        public void Delete(int id){
-            var permission = ctx.PermissionSet.SingleOrDefault(e => e.Id == id);
-            if(ctx.Entry(permission).State == EntityState.Detached){
-                ctx.PermissionSet.Attach(permission);
-            };
-            ctx.PermissionSet.Remove(permission);
-            ctx.SaveChanges();
-        }
-
-        public IEnumerable<Permission> GetAll()
+        public IEnumerable<Permission> SearchAll()
         {
             return ctx.PermissionSet
 
             .ToList();
         }
 
-        public Permission GetById(int id)
+        public Permission SearchById(int id)
         {
             return ctx.PermissionSet
 
             .SingleOrDefault(e => e.Id == id);
-        }
-
-        public int Create(Permission permission)
-        {
-            ctx.PermissionSet.Add(permission);
-            ctx.SaveChanges();
-            return permission.Id;
-        }
-
-        public void Update(Permission permission)
-        {
-            ctx.PermissionSet.Attach(permission);
-            ctx.Entry(permission).State = EntityState.Modified;
-            ctx.SaveChanges();
         }
  
         public IEnumerable<Permission> SearchByShortName(System.String shortname)

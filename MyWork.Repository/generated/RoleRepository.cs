@@ -13,48 +13,26 @@ using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
-    public class RoleRepository : IRoleRepository
+    public class RoleRepository : AbstractRepository<Role, int>, IRoleRepository
     {
-        protected readonly MyWorkDbContext ctx;
-        public RoleRepository(MyWorkDbContext context){
-            this.ctx = context;
+        //protected readonly MyWorkDbContext ctx;
+
+        public RoleRepository(MyWorkDbContext context) : base(context)
+        {
         }
 
-        public void Delete(int id){
-            var role = ctx.RoleSet.SingleOrDefault(e => e.Id == id);
-            if(ctx.Entry(role).State == EntityState.Detached){
-                ctx.RoleSet.Attach(role);
-            };
-            ctx.RoleSet.Remove(role);
-            ctx.SaveChanges();
-        }
-
-        public IEnumerable<Role> GetAll()
+        public IEnumerable<Role> SearchAll()
         {
             return ctx.RoleSet
 
             .ToList();
         }
 
-        public Role GetById(int id)
+        public Role SearchById(int id)
         {
             return ctx.RoleSet
 
             .SingleOrDefault(e => e.Id == id);
-        }
-
-        public int Create(Role role)
-        {
-            ctx.RoleSet.Add(role);
-            ctx.SaveChanges();
-            return role.Id;
-        }
-
-        public void Update(Role role)
-        {
-            ctx.RoleSet.Attach(role);
-            ctx.Entry(role).State = EntityState.Modified;
-            ctx.SaveChanges();
         }
  
         public IEnumerable<Role> SearchByShortName(System.String shortname)

@@ -66,6 +66,8 @@ namespace <#=myNameSpace#>.Repository
 {
     public interface I<#=className#>Repository : IRepository<<#=className#>, <#=fieldIdType#>>
     {
+        IEnumerable<<#=className#>> SearchAll();
+        <#=className#> SearchById(<#=fieldIdType#> id);
 <#
         // to lool each field property for generating methods
         foreach(PropertyInfo pi in type.GetProperties())

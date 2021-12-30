@@ -13,23 +13,15 @@ using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : AbstractRepository<User, int>, IUserRepository
     {
-        protected readonly MyWorkDbContext ctx;
-        public UserRepository(MyWorkDbContext context){
-            this.ctx = context;
+        //protected readonly MyWorkDbContext ctx;
+
+        public UserRepository(MyWorkDbContext context) : base(context)
+        {
         }
 
-        public void Delete(int id){
-            var user = ctx.UserSet.SingleOrDefault(e => e.Id == id);
-            if(ctx.Entry(user).State == EntityState.Detached){
-                ctx.UserSet.Attach(user);
-            };
-            ctx.UserSet.Remove(user);
-            ctx.SaveChanges();
-        }
-
-        public IEnumerable<User> GetAll()
+        public IEnumerable<User> SearchAll()
         {
             return ctx.UserSet
 
@@ -38,27 +30,13 @@ namespace MyWork.Repository
             .ToList();
         }
 
-        public User GetById(int id)
+        public User SearchById(int id)
         {
             return ctx.UserSet
 
             .Include(e => e.UserProfile)
 
             .SingleOrDefault(e => e.Id == id);
-        }
-
-        public int Create(User user)
-        {
-            ctx.UserSet.Add(user);
-            ctx.SaveChanges();
-            return user.Id;
-        }
-
-        public void Update(User user)
-        {
-            ctx.UserSet.Attach(user);
-            ctx.Entry(user).State = EntityState.Modified;
-            ctx.SaveChanges();
         }
  
         public IEnumerable<User> SearchByUserName(System.String username)

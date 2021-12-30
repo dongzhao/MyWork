@@ -30,6 +30,8 @@ namespace MyWork.Repository
 {
     public interface IPermissionRepository : IRepository<Permission, int>
     {
+        IEnumerable<Permission> SearchAll();
+        Permission SearchById(int id);
         IEnumerable<Permission> SearchByShortName(System.String shortname);                  
          IEnumerable<Permission> SearchByDescription(System.String description);                  
         

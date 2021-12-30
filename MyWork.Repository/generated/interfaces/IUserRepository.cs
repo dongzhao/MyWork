@@ -13,6 +13,8 @@ namespace MyWork.Repository
 {
     public interface IUserRepository : IRepository<User, int>
     {
+        IEnumerable<User> SearchAll();
+        User SearchById(int id);
         IEnumerable<User> SearchByUserName(System.String username);                  
          IEnumerable<User> SearchByEmailAddress(System.String emailaddress);                  
         

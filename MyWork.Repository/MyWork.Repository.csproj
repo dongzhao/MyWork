@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AbstractRepository.cs" />
     <Compile Include="generated\interfaces\IPermissionRepository.cs" />
     <Compile Include="generated\interfaces\IRoleRepository.cs" />
     <Compile Include="generated\interfaces\IUserProfileRepository.cs" />

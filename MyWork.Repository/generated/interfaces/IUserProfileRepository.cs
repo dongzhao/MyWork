@@ -13,6 +13,8 @@ namespace MyWork.Repository
 {
     public interface IUserProfileRepository : IRepository<UserProfile, int>
     {
+        IEnumerable<UserProfile> SearchAll();
+        UserProfile SearchById(int id);
         IEnumerable<UserProfile> SearchByFirstName(System.String firstname);                  
          IEnumerable<UserProfile> SearchByLastName(System.String lastname);                  
          IEnumerable<UserProfile> SearchByGender(System.Boolean gender);                  

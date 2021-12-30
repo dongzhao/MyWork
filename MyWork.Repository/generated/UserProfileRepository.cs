@@ -13,48 +13,26 @@ using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
-    public class UserProfileRepository : IUserProfileRepository
+    public class UserProfileRepository : AbstractRepository<UserProfile, int>, IUserProfileRepository
     {
-        protected readonly MyWorkDbContext ctx;
-        public UserProfileRepository(MyWorkDbContext context){
-            this.ctx = context;
+        //protected readonly MyWorkDbContext ctx;
+
+        public UserProfileRepository(MyWorkDbContext context) : base(context)
+        {
         }
 
-        public void Delete(int id){
-            var userprofile = ctx.UserProfileSet.SingleOrDefault(e => e.Id == id);
-            if(ctx.Entry(userprofile).State == EntityState.Detached){
-                ctx.UserProfileSet.Attach(userprofile);
-            };
-            ctx.UserProfileSet.Remove(userprofile);
-            ctx.SaveChanges();
-        }
-
-        public IEnumerable<UserProfile> GetAll()
+        public IEnumerable<UserProfile> SearchAll()
         {
             return ctx.UserProfileSet
 
             .ToList();
         }
 
-        public UserProfile GetById(int id)
+        public UserProfile SearchById(int id)
         {
             return ctx.UserProfileSet
 
             .SingleOrDefault(e => e.Id == id);
-        }
-
-        public int Create(UserProfile userprofile)
-        {
-            ctx.UserProfileSet.Add(userprofile);
-            ctx.SaveChanges();
-            return userprofile.Id;
-        }
-
-        public void Update(UserProfile userprofile)
-        {
-            ctx.UserProfileSet.Attach(userprofile);
-            ctx.Entry(userprofile).State = EntityState.Modified;
-            ctx.SaveChanges();
         }
  
         public IEnumerable<UserProfile> SearchByFirstName(System.String firstname)

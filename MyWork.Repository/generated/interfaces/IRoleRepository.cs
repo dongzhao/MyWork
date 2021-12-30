@@ -13,6 +13,8 @@ namespace MyWork.Repository
 {
     public interface IRoleRepository : IRepository<Role, int>
     {
+        IEnumerable<Role> SearchAll();
+        Role SearchById(int id);
         IEnumerable<Role> SearchByShortName(System.String shortname);                  
          IEnumerable<Role> SearchByDescription(System.String description);                  
         
