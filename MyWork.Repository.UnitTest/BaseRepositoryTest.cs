@@ -23,6 +23,7 @@ namespace MyWork.Repository.UnitTest
             builder.RegisterType<RoleRepository>().As<IRoleRepository>();
             builder.RegisterType<PermissionRepository>().As<IPermissionRepository>();
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>();
+            builder.RegisterType<UserProfileReportRepository>().As<IUserProfileReportRepository>();
 
             container = builder.Build();
         }

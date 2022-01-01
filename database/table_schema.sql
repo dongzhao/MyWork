@@ -23,6 +23,7 @@ CREATE TABLE [dbo].[my_profile] (
     [BirthDate] DATETIME       NULL,
     [Mobile]    NVARCHAR (20) NULL,
     [Address]   NVARCHAR (255) NULL,
+    [EffectiveDateTime] DATETIME  NOT NULL,
     CONSTRAINT [PK_dbo.my_profile] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

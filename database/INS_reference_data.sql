@@ -24,6 +24,7 @@ SET IDENTITY_INSERT [dbo].[my_permission] OFF
 -- Populate dummy UserProfile
 SET IDENTITY_INSERT [dbo].[my_profile] ON
 INSERT INTO [dbo].[my_profile]([Id],[FirstName],[LastName]) VALUES(1, 'Tony','Zhao');
+INSERT INTO [dbo].[my_profile]([Id],[FirstName],[LastName],[Gender],[BirthDate],[Mobile],[Address]) VALUES(2, 'Jerry','Zhao',1,'1970-01-01','04019999999','2 Test Ave');
 SET IDENTITY_INSERT [dbo].[my_profile] OFF
 
 -- Populate dummy user

@@ -84,6 +84,7 @@
   <ItemGroup>
     <Compile Include="BaseRepositoryTest.cs" />
     <Compile Include="RolePermissionAssociationTest.cs" />
+    <Compile Include="UserProfileReportRepositoryTest.cs" />
     <Compile Include="UserRoleAssociationTest.cs" />
     <Compile Include="UserRepositoryTest.cs" />
     <Compile Include="RoleRepositoryTest.cs" />

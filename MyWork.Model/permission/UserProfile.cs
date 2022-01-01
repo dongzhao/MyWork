@@ -27,6 +27,7 @@ namespace MyWork.Model
         public string Mobile { get; set; }
         [ModelAttribute(Searchable = true)]
         public string Address { get; set; }
-
+        //[ModelAttribute(Searchable = true)]
+        //public DateTime EffectiveDateTime { get; set; }
     }
 }

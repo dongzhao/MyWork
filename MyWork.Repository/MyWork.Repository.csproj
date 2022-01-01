@@ -61,7 +61,10 @@
     <Compile Include="generated\UserProfileRepository.cs" />
     <Compile Include="generated\UserRepository.cs" />
     <Compile Include="interfaces\IRepository.cs" />
+    <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="report\interfaces\IUserProfileReportRepository.cs" />
+    <Compile Include="report\UserProfileReportRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MyWork.Core\MyWork.Core.csproj">
