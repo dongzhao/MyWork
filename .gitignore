@@ -24,3 +24,7 @@
 /MyWork.Model.UnitTest/bin/Debug
 /MyWork.Repository/bin/Debug
 /MyWork.Repository.UnitTest/bin/Debug
+/MyWork.CommonService/bin/Debug
+/MyWork.CommonService/obj/Debug
+/MyWork.CommonService.UnitTest/bin/Debug
+/MyWork.CommonService.UnitTest/obj/Debug

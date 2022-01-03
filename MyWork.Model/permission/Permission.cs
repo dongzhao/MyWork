@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MyWork.Model
 {
     [Table("dbo.my_permission")]
-    public class Permission : IEntity<int>
+    public class Permission : IEntity<int>, ICodeGen
     {
         public Permission()
         {

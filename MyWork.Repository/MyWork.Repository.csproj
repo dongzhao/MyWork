@@ -60,6 +60,9 @@
     <Compile Include="generated\RoleRepository.cs" />
     <Compile Include="generated\UserProfileRepository.cs" />
     <Compile Include="generated\UserRepository.cs" />
+    <Compile Include="GenericRepository.cs" />
+    <Compile Include="HierarchyRepository.cs" />
+    <Compile Include="interfaces\IHierarchyRepository.cs" />
     <Compile Include="interfaces\IRepository.cs" />
     <Compile Include="PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

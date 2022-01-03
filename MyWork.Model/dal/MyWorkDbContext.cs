@@ -16,7 +16,7 @@ namespace MyWork.Model
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<MyTreeHierarchy>()
+            modelBuilder.Entity<Hierarchy>()
                 .HasMany(p => p.Children)
                 .WithOptional(c => c.Parent)
                 .HasForeignKey(c => c.ParentId);
@@ -34,7 +34,7 @@ namespace MyWork.Model
             base.OnModelCreating(modelBuilder);
         }
 
-        public virtual DbSet<MyTreeHierarchy> TreeHierarchySet { get; set; }
+        public virtual DbSet<Hierarchy> HierarchySet { get; set; }
 
         public virtual DbSet<User> UserSet { get; set; }
         public virtual DbSet<Role> RoleSet { get; set; }

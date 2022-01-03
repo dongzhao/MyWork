@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MyWork.Model
 {
     [Table("my_profile")]
-    public class UserProfile : IEntity<int>
+    public class UserProfile : IEntity<int>, ICodeGen
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

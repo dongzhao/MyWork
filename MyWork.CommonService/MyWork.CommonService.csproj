@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{5425C904-B0DA-4EE7-A869-B0867253FEF6}</ProjectGuid>
+    <ProjectGuid>{3644354C-F2B3-4DC6-984F-1927ECA058BA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyWork.Core</RootNamespace>
-    <AssemblyName>MyWork.Core</AssemblyName>
+    <RootNamespace>MyWork.CommonService</RootNamespace>
+    <AssemblyName>MyWork.CommonService</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -31,7 +31,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,11 +45,34 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="attributes\ModelAttribute.cs" />
-    <Compile Include="attributes\StringEnumAttribute.cs" />
-    <Compile Include="PasswordUtility.cs" />
+    <Compile Include="config\EmailConfig.cs" />
+    <Compile Include="config\RestClientConfig.cs" />
+    <Compile Include="email\dto\MailDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringEnumUtility.cs" />
+    <Compile Include="email\EmailServiceClient.cs" />
+    <Compile Include="rest\RestServiceClient.cs" />
+    <Compile Include="tree\dto\TreeNodeView.cs" />
+    <Compile Include="tree\HierarchyTreeService.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MyWork.Core\MyWork.Core.csproj">
+      <Project>{5425c904-b0da-4ee7-a869-b0867253fef6}</Project>
+      <Name>MyWork.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyWork.Model\MyWork.Model.csproj">
+      <Project>{20ab4ded-1263-4ef2-b9cf-81a10accaef4}</Project>
+      <Name>MyWork.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyWork.Repository\MyWork.Repository.csproj">
+      <Project>{7796a4fa-c46f-47e4-a617-3fc0274241e9}</Project>
+      <Name>MyWork.Repository</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tree\interfaces\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

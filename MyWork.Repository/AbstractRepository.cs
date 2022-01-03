@@ -18,14 +18,14 @@ namespace MyWork.Repository
             this.dbSet = context.Set<T>();
         }
 
-        public ID Create(T obj)
+        public virtual ID Create(T obj)
         {
             dbSet.Add(obj);
             ctx.SaveChanges();
             return (obj as IEntity<ID>).Id;
         }
 
-        public void Delete(ID id)
+        public virtual void Delete(ID id)
         {
             T obj = dbSet.Find(id);
             if (ctx.Entry(obj).State == EntityState.Detached)
@@ -36,17 +36,17 @@ namespace MyWork.Repository
             ctx.SaveChanges();
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return dbSet.ToList<T>();
         }
 
-        public T GetById(ID id)
+        public virtual T GetById(ID id)
         {
             return dbSet.Find(id);
         }
 
-        public void Update(T obj)
+        public virtual void Update(T obj)
         {
             dbSet.Attach(obj);
             ctx.Entry(obj).State = EntityState.Modified;

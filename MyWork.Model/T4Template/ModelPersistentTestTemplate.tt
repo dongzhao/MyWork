@@ -28,7 +28,7 @@
     // beginning of looping class
     foreach(var type in typeList)
     {
-        if(!typeof(IEntity<int>).IsAssignableFrom(type) || type.IsAbstract || type.IsInterface || !type.IsClass){
+        if(!typeof(ICodeGen).IsAssignableFrom(type) || type.IsAbstract || type.IsInterface || !type.IsClass){
             continue;
         }
         var className = type.Name;

@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 namespace MyWork.Model
 {
     [Table("dbo.my_user")]
-    public class User : IEntity<int>
+    public class User : IEntity<int>, ICodeGen
     {
         public User()
         {

@@ -2,14 +2,11 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MyWork.Model
 {
-    [Table("tree.my_hierarchytree")]
-    public class MyTreeHierarchy
+    [Table("tree.my_hierarchy")]
+    public class Hierarchy : IEntity<int>
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -17,20 +14,24 @@ namespace MyWork.Model
         [ForeignKey("Children")]
         public int? ParentId { get; set; }
         public string Title { get; set; }
-        public virtual MyTreeHierarchy Parent { get; set; }
-        public virtual ICollection<MyTreeHierarchy> Children { get; set; }  
+        public virtual Hierarchy Parent { get; set; }
+        public virtual ICollection<Hierarchy> Children { get; set; }  
         public int HierachyType { get; set; }
         public string HierachyItem { get; set; }
+        public string LinkHierachyItem { get; set; }
+
+        public DateTime CreatedDateTime { get; set; }
+        public string CreatedBy { get; set; }
     }
 
-    public class MyHierarchyItem : IEqualityComparer<MyHierarchyItem>
+    public class HierarchyItem : IEqualityComparer<HierarchyItem>
     {
         public int Id { get; set; }
         public string ItemName { get; set; }
         public string DataType { get; set; }
         public string ItemValue { get; set; }
 
-        public bool Equals(MyHierarchyItem x, MyHierarchyItem y)
+        public bool Equals(HierarchyItem x, HierarchyItem y)
         {
             if(x == null && y == null)
             {
@@ -46,7 +47,7 @@ namespace MyWork.Model
             //throw new NotImplementedException();
         }
 
-        public int GetHashCode(MyHierarchyItem obj)
+        public int GetHashCode(HierarchyItem obj)
         {
             throw new NotImplementedException();
         }

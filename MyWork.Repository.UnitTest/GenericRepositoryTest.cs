@@ -1,0 +1,85 @@
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
+using Autofac;
+using MyWork.Model;
+using System.Globalization;
+using System.Linq;
+
+
+namespace MyWork.Repository.UnitTest
+{
+    [TestClass]
+    public class GenericRepositoryTest : BaseRepositoryTest
+    {
+        private IRepository<UserProfile, int> repository;
+
+        [TestInitialize]
+        public void Init()
+        {
+            this.repository = container.Resolve<IRepository<UserProfile, int>>();
+
+        }
+
+        [TestMethod]
+        public void TestCreate()
+        {
+            var obj = new UserProfile()
+            {
+                FirstName = "Jerry",
+                LastName = "Zhao",
+                Gender = true,
+                BirthDate = DateTime.ParseExact("1980-12-01", "yyyy-MM-dd", CultureInfo.InvariantCulture),
+                Address = "2 Test1 AVE",
+                Mobile = "0401999998",
+            };
+            var id = repository.Create(obj);
+
+            Assert.IsTrue(id > 0);
+
+        }
+
+        [TestMethod]
+        public void TestUpdate()
+        {
+            var obj = repository.GetAll().FirstOrDefault();
+            Assert.IsNotNull(obj);
+            var id = obj.Id;
+            var oldObj = new UserProfile()
+            {
+                FirstName = obj.FirstName,
+                LastName = obj.LastName,
+                Gender = obj.Gender,
+                BirthDate = obj.BirthDate,
+                Address = obj.Address,
+                Mobile = obj.Mobile,
+            };
+            obj.FirstName = obj.FirstName + "_upd";
+            obj.LastName = obj.LastName + "_upd";
+            obj.Gender = obj.Gender.HasValue && obj.Gender.Value ? false : true;
+            obj.Mobile = obj.Mobile + "9";
+            obj.Address = obj.Address + "_upd";
+            obj.BirthDate = obj.BirthDate.HasValue ? obj.BirthDate.Value.AddDays(1) : DateTime.Now;
+            repository.Update(obj);
+
+            obj = repository.GetById(obj.Id);
+            Assert.IsNotNull(obj);
+            Assert.AreNotEqual(obj.FirstName, oldObj.FirstName);
+            Assert.AreNotEqual(obj.LastName, oldObj.LastName);
+            Assert.AreNotEqual(obj.Gender, oldObj.Gender);
+            Assert.AreNotEqual(obj.Mobile, oldObj.Mobile);
+            Assert.AreNotEqual(obj.BirthDate, oldObj.BirthDate);
+            Assert.AreNotEqual(obj.Address, oldObj.Address);
+        }
+
+        [TestMethod]
+        public void TestDelete()
+        {
+            var obj = repository.GetAll().FirstOrDefault();
+            Assert.IsNotNull(obj);
+            var id = obj.Id;
+            repository.Delete(obj.Id);
+            obj = repository.GetById(id);
+            Assert.IsNull(obj);
+        }
+    }
+}

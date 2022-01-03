@@ -25,6 +25,8 @@ namespace MyWork.Repository.UnitTest
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>();
             builder.RegisterType<UserProfileReportRepository>().As<IUserProfileReportRepository>();
 
+            builder.RegisterGeneric(typeof(GenericRepository<,>)).As(typeof(IRepository<,>));
+
             container = builder.Build();
         }
 
