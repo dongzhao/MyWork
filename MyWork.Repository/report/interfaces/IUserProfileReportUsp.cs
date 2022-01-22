@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
-    public interface IUserProfileReportRepository
+    public interface IUserProfileReportUsp
     {
         IEnumerable<UserProfileReport> Search(string dateFrom, string dateTo);
     }

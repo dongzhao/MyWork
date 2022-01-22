@@ -24,10 +24,12 @@ namespace MyWork.Repository.UnitTest
         {
             var obj = new UserProfile()
             {
-                FirstName = "Tony",
+                FirstName = "Oliver",
                 LastName = "Zhao",
+                //FirstName = "Mark",
+                //LastName = "Fan",
                 Gender = true,
-                BirthDate = DateTime.ParseExact("1980-12-01","yyyy-MM-dd", CultureInfo.InvariantCulture),
+                BirthDate = DateTime.ParseExact("2010-12-01","yyyy-MM-dd", CultureInfo.InvariantCulture),
                 Address = "2 Test AVE",
                 Mobile = "0401999999",
             };

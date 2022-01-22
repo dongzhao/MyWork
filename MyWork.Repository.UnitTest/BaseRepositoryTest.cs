@@ -23,7 +23,9 @@ namespace MyWork.Repository.UnitTest
             builder.RegisterType<RoleRepository>().As<IRoleRepository>();
             builder.RegisterType<PermissionRepository>().As<IPermissionRepository>();
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>();
-            builder.RegisterType<UserProfileReportRepository>().As<IUserProfileReportRepository>();
+            builder.RegisterType<UserProfileReportUsp>().As<IUserProfileReportUsp>();
+
+            builder.RegisterType<UserProfileQuery>().As<IUserProfileQuery>();
 
             builder.RegisterGeneric(typeof(GenericRepository<,>)).As(typeof(IRepository<,>));
 

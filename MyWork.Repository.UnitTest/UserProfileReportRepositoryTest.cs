@@ -10,12 +10,12 @@ namespace MyWork.Repository.UnitTest
     [TestClass]
     public class UserProfileReportRepositoryTest : BaseRepositoryTest
     {
-        private IUserProfileReportRepository repository;
+        private IUserProfileReportUsp repository;
 
         [TestInitialize]
         public void Init()
         {
-            this.repository = container.Resolve<IUserProfileReportRepository>();
+            this.repository = container.Resolve<IUserProfileReportUsp>();
         }
 
         [TestMethod]

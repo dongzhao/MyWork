@@ -33,7 +33,7 @@ namespace MyWork.Web.App_Start
             builder.RegisterType<PermissionRepository>().As<IPermissionRepository>();
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>();
 
-            builder.RegisterType<UserProfileReportRepository>().As<IUserProfileReportRepository>();
+            builder.RegisterType<UserProfileReportUsp>().As<IUserProfileReportUsp>();
 
             builder.RegisterGeneric(typeof(GenericRepository<,>)).As(typeof(IRepository<,>));
 

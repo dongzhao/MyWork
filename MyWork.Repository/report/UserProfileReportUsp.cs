@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 
 namespace MyWork.Repository
 {
-    public class UserProfileReportRepository : IUserProfileReportRepository
+    public class UserProfileReportUsp : IUserProfileReportUsp
     {
 		private readonly MyWorkDbContext ctx;
-		public UserProfileReportRepository(MyWorkDbContext context)
+		public UserProfileReportUsp(MyWorkDbContext context)
         {
 			this.ctx = context;
         }
