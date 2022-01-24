@@ -1,0 +1,40 @@
+﻿
+@model IEnumerable<MyWork.Web.Models.ApiIndexView>
+
+<div>
+    @Html.ActionLink("Home", "Index", "Home", new { }, null) -> Web API Index
+</div>
+<hr />
+
+<table class="table">
+    <thead class="table-primary">
+        <tr>
+            <th>#</th>
+            <th>@Html.DisplayNameFor(model => model.Url)</th>
+            <th>@Html.DisplayNameFor(model => model.Behaviour)</th>
+            <th>@Html.DisplayNameFor(model => model.Description)</th>
+        </tr>
+    </thead>
+    <tbody>
+        @{ var rowNo = 0;}
+        @foreach (var item in Model)
+        {
+            rowNo++;
+            <tr>
+                <td>
+                    @rowNo
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.Url)</td>
+                <td>@Html.DisplayFor(modelItem => item.Behaviour)</td>
+                <td>
+                    @if (!String.IsNullOrEmpty(item.Description))
+                    {
+                        @Html.Raw(Html.Encode(item.Description).Replace("\n", "<br/>"))
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+

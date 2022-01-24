@@ -8,25 +8,22 @@ using System.Web.Mvc;
 namespace MyWork.Web.Controllers
 {
     //[ActionAuthorizeAttribute]
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
+        public HomeController(IAuthorizeProvider p) : base(p)
+        {
+
+        }
+
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult ViewProfile()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
+            return View(UserProfile);
         }
 
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
     }
 }

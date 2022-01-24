@@ -21,32 +21,39 @@ namespace MyWork.Web.Authorize
             var actionName = filterContext.ActionDescriptor.ActionName;
             var permission = string.Format("{0}-{1}", controllerName, actionName);
 
-            var logonName = filterContext.HttpContext.User.Identity.Name;
-            var userInfo = (UserInfo)filterContext.HttpContext.Session["user_info"];
-            var valid = false;
-            try
+            var authProvider = DependencyResolver.Current.GetService<IAuthorizeProvider>();
+            var valid = authProvider.HasPermission(permission);
+            if (!valid)
             {
-                var authHelper = DependencyResolver.Current.GetService<IAuthorizeHelper>();
-                if (userInfo == null)
-                {
-                    var username = authHelper.ToShortUserName(logonName);
-                    userInfo = authHelper.GetUserInfo(username);
-                    filterContext.HttpContext.Session["user_info"] = userInfo;
-                }
-                valid = authHelper.HasPermission(permission, userInfo);
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Index" }, { "controller", "Unauthorized" } });
             }
-            catch(Exception ex)
-            {
-                logger.Error(ex.StackTrace);
-                throw new Exception("Unthroized user!");
-            }
-            finally
-            {
-                if (!valid)
-                {
-                    filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Index" }, { "controller", "Unauthorized" } });
-                }
-            }
+
+            //var logonName = filterContext.HttpContext.User.Identity.Name;
+            //var userInfo = (UserInfo)filterContext.HttpContext.Session["user_info"];
+            //var valid = false;
+            //try
+            //{
+            //    var authProvider = DependencyResolver.Current.GetService<IAuthorizeProvider>();
+            //    if (userInfo == null)
+            //    {
+            //        var username = authProvider.ToShortUserName(logonName);
+            //        userInfo = authProvider.UserProfile(username);
+            //        filterContext.HttpContext.Session["user_info"] = userInfo;
+            //    }
+            //    valid = authProvider.HasPermission(permission, userInfo);
+            //}
+            //catch(Exception ex)
+            //{
+            //    logger.Error(ex.StackTrace);
+            //    throw new Exception("Unthroized user!");
+            //}
+            //finally
+            //{
+            //    if (!valid)
+            //    {
+            //        filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary { { "action", "Index" }, { "controller", "Unauthorized" } });
+            //    }
+            //}
         }
 
     }

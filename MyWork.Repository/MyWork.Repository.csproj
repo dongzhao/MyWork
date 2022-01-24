@@ -68,7 +68,7 @@
     <Compile Include="HierarchyRepository.cs" />
     <Compile Include="interfaces\IHierarchyRepository.cs" />
     <Compile Include="interfaces\IRepository.cs" />
-    <Compile Include="PredicateBuilder.cs" />
+    <Compile Include="dynamic\PredicateBuilder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="report\interfaces\IUserProfileReportUsp.cs" />
     <Compile Include="report\UserProfileReportUsp.cs" />

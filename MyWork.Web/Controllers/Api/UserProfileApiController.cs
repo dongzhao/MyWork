@@ -34,9 +34,9 @@ namespace MyWork.Web.Controllers
         }
 
         [HttpGet]
-        [Route("get/{username}")]
+        [Route("userprofile/{username}")]
         [Display(Description = "Get User details by username")]
-        public IHttpActionResult Get(string username )
+        public IHttpActionResult GetUserProfile(string username )
         {
             
             try

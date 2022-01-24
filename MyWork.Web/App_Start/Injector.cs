@@ -37,7 +37,7 @@ namespace MyWork.Web.App_Start
 
             builder.RegisterGeneric(typeof(GenericRepository<,>)).As(typeof(IRepository<,>));
 
-            builder.RegisterType<AuthorizeHelper>().As<IAuthorizeHelper>();
+            builder.RegisterType<AuthorizeProvider>().As<IAuthorizeProvider>().InstancePerRequest();
 
             builder.RegisterModule<AutofacWebTypesModule>();
 

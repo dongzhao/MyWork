@@ -37,7 +37,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href="#"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;@HttpContext.Current.User.Identity.Name</a></li>
+                    <li><a href="@Url.Action("ViewProfile", "Home")"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;@ViewBag.UserName</a></li>
                 </ul>
             </div>
         </div>
@@ -46,7 +46,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - MyWork Application</p>
         </footer>
     </div>
 
