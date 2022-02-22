@@ -28,9 +28,22 @@ namespace MyWork.Model
         public string Password { get; set; }
         [ModelAttribute(Searchable = true)]
         public string EmailAddress { get; set; }
-        [ModelAttribute(EagerLoading = true)]
-        public virtual UserProfile UserProfile { get; set; }
+        //[ModelAttribute(Searchable = true)]
+        //public string FirstName { get; set; }
+        //[ModelAttribute(Searchable = true)]
+        //public string LastName { get; set; }
+        //[ModelAttribute(Searchable = true)]
+        //public Boolean? Gender { get; set; } = null;
+        //[ModelAttribute(Searchable = true)]
+        //public DateTime? BirthDate { get; set; } = null;
+        //[ModelAttribute(Searchable = true)]
+        //public string Mobile { get; set; }
+        //[ModelAttribute(Searchable = true)]
+        //public string Address { get; set; }
+        //[ModelAttribute(Searchable = true)]
+        //public DateTime EffectiveDateTime { get; set; }
 
+        public virtual UserProfile UserProfile { get; set; }
         public virtual ICollection<Role> Roles { get; set; } = new HashSet<Role>();
     }
 }

@@ -3,55 +3,67 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE-11">
     <title>@ViewBag.Title - MyWork</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
 </head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("MyWork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    @*<li>@Html.ActionLink("About", "About", "Home")</li>
-        <li>@Html.ActionLink("Contact", "Contact", "Home")</li>*@
 
-                    <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            Maintainance
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#">User</a></li>
-                            <li><a href="#">Role</a></li>
-                            <li><a href="#">Permission</a></li>
-                        </ul>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><a href="@Url.Action("ViewProfile", "Home")"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;@ViewBag.UserName</a></li>
-                </ul>
-            </div>
+<script>
+    $(document).ready(function(){
+        let timeZoneName = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        $('#spanClientTimeZone').text(timeZoneName);
+    });
+
+</script>
+
+<body style="padding-top: 20px">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+        @Html.ActionLink("MyWork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsHeader" aria-controls="navbarsHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsHeader">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    @Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#">Link 1</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="userPermissionDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Maintainance
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="userPermissionDropdownMenuLink">
+                        @Html.ActionLink("User", "Index", "User", new { @class = "dropdown-item" })
+                        @Html.ActionLink("Role", "Index", "Role", new { @class = "dropdown-item" })
+                        @Html.ActionLink("Permission", "Index", "Permission", new { @class = "dropdown-item" })
+                    </div>
+                </li>
+            </ul>
+            @*<form class="form-inline my-2 my-md-0">
+            <input class="form-control" type="text" placeholder="Search">
+        </form>*@
+            <ul class="nav navbar-nav navbar-right">
+                <li class="nav-item"><a href="#" class="navbar-link">Timezone: <span id="spanClientTimeZone"></span></a></li>
+                <li class="nav-item"><a href="@Url.Action("ViewProfile", "Home", new { @class = "dropdown-item" })"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;@ViewBag.UserName</a></li>
+            </ul>
         </div>
-    </div>
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
+        <br />
         <hr />
         <footer>
             <p>&copy; @DateTime.Now.Year - MyWork Application</p>
         </footer>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+
 </body>
 </html>

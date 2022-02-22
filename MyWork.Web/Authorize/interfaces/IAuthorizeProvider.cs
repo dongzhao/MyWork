@@ -9,7 +9,7 @@ namespace MyWork.Web.Authorize
 {
     public interface IAuthorizeProvider
     {
-        UserInfo UserProfile { get; set; }
+        UserProfileDto UserProfile { get; set; }
         bool HasPermission(string permission);
     }
 }

@@ -25,5 +25,17 @@ namespace MyWork.Web.Controllers
             return View(UserProfile);
         }
 
+        public ActionResult EditProfile()
+        {
+            return View(UserProfile);
+        }
+
+        [HttpPost, ActionName("EditProfile")]
+        public ActionResult EditProfile(UserProfileDto dto)
+        {
+            UserProfile = dto;
+            return View("ViewProfile", UserProfile);
+        }
+
     }
 }

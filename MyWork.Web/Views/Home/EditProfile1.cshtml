@@ -1,0 +1,69 @@
+﻿@model MyWork.Web.UserProfileDto
+
+<div class="form-row">
+    <div class="col-md-6 text-left">
+        @Html.ActionLink("Go Back", "ViewProfile", "Home", new { }, null) -> Export
+    </div>
+</div>
+<hr />
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.UserId)
+
+        <div class="form-group form-inline">
+            @Html.Label("UserId", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control", diabled = "disabled", @readonly = "readonly" } })
+            </div>
+        </div>
+
+        <div class="form-group form-inline">
+            @Html.Label("UserName", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
+            <div class="col-md-3">
+                @Html.EditFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
+        </div>
+
+        @*<div class="form-group form-inline">
+            @Html.Label("Team", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
+            <div class="col-md-3">
+                @Html.DropDownList("TeamId", null, "--Select--", htmlAttributes: new { @class = "form-control", required = "--Select--" })
+                @Html.ValidationMessageFor(model => model.TeamId, "", new
+                {
+                    htmlAttributes = new
+                    {
+                        @class = "text-danger}})
+            </div>
+        </div>*@
+
+        <div class="form-group form-inline">
+            @Html.Label("Roles", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
+            <div class="col-md-3">
+                <ul class="list-group">
+                    @{ var idx = 0;}
+                    @foreach (var role in Model.Roles)
+                    {
+                        @Html.HiddenFor(model => model.Roles[idx])
+                        <li class="list-group-item">@role</li>
+                        idx++;
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+    <div class="form-group">
+        <div class="col-md-2">
+            <input type="submit" value="Save" class="btn btn-success form-control">
+        </div>
+    </div>
+
+}
+

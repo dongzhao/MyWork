@@ -1,4 +1,4 @@
-﻿@model MyWork.Web.Models.UserInfo
+﻿@model MyWork.Web.UserProfileDto
 <style>
     div.shadow-box {
         border: 1px solid;
@@ -7,18 +7,19 @@
     }
 </style>
 
+<br>
+    <div class="form-row">
+        <div class="col-md-6 text-left">
+            @Html.ActionLink("Home", "Index", "Home", new { }, null) -> User Account
+        </div>
+        <div class="col-md-6 text-right">
+            @Html.ActionLink("Edit Account", "EditProfile", "Home", new { @class = "btn btn-success" }, null)
+        </div>
+    </div>
 
-<div class="form-row">
-    <div class="col-md-6 text-left">
-        @Html.ActionLink("Home", "Index", "Home", new { }, null) -> User Account
-    </div>
-    <div class="col-md-6 text-right">
-        @Html.ActionLink("Edit Account", "EditProfile", "Home", new { @class = "btn btn-success" }, null)
-    </div>
-</div>
-<hr />
-<div class="container">
-    <div class="row">
+    <hr />
+
+    <div class="form">
         @*<div class="form-group form-inline">
                 @Html.Label("UserId", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
                 <div class="col-md-3 shadow-box">
@@ -26,29 +27,29 @@
                 </div>
             </div>*@
 
-        <div class="row form-inline">
+        <div class="form-group row">
             @Html.Label("UserName", new { @class = "control-label col col-form-label col-md-2" })
             <div class="col-md-3 shadow-box">
                 @Html.DisplayFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
-        <div class="row form-inline">
+        <div class="form-group row">
             @Html.Label("FullName", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
             <div class="col-md-3 shadow-box">
-                @Html.DisplayFor(model => model.UserProfile.FirstName, new { htmlAttributes = new { @class = "form-control" } }),
-                @Html.DisplayFor(model => model.UserProfile.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DisplayFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } }),
+                @Html.DisplayFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
-        <div class="row form-inline">
+        <div class="form-group row">
             @Html.Label("Email", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
             <div class="col-md-3 shadow-box">
                 @Html.DisplayFor(model => model.Email, new { htmlAttributes = new { @class = "form-control" } })
             </div>
         </div>
 
-        <div class="row form-inline">
+        <div class="form-group row">
             @Html.Label("Roles", htmlAttributes: new { @class = "control-label col col-form-label col-md-2" })
             <div class="col-md-3 shadow-box">
                 <ul class="list-group">
@@ -60,4 +61,3 @@
             </div>
         </div>
     </div>
-</div>

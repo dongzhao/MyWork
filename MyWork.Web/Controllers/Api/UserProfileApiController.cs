@@ -36,23 +36,19 @@ namespace MyWork.Web.Controllers
         [HttpGet]
         [Route("userprofile/{username}")]
         [Display(Description = "Get User details by username")]
-        public IHttpActionResult GetUserProfile(string username )
+        public IHttpActionResult GetUserProfile(string username)
         {
             
             try
             {
                 var result = userRepository.SearchByUserName(username).FirstOrDefault();
-                var dto = new UserInfo()
+                var dto = new UserProfileDto()
                 {
                     UserId = result.Id,
                     UserName = username,
                     Email = result.EmailAddress,
-                    UserProfile = new UserProfileDto()
-                    {
-                        ProfileId = result.UserProfile.Id,
-                        FirstName = result.UserProfile.FirstName,
-                        LastName = result.UserProfile.LastName,
-                    },
+                    FirstName = result.UserProfile.FirstName,
+                    LastName = result.UserProfile.LastName,
                     Roles = new List<RoleDto>(),
                 };
                 

@@ -13,8 +13,8 @@ namespace MyWork.Web.Controllers
     {
         private readonly IAuthorizeProvider provider;
 
-        //private UserInfo _userProfile;
-        protected UserInfo UserProfile
+        private UserProfileDto _userProfile;
+        protected UserProfileDto UserProfile
         {
             get 
             {

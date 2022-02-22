@@ -28,6 +28,15 @@ namespace MyWork.CommonService
             var json = res.Content.ReadAsStringAsync().Result;
             return JsonConvert.DeserializeObject<UserProfile>(json);
         }
+
+        public UserProfile SaveUserProfile(UserProfile userProfile)
+        {
+            var content = new StringContext(JsonConvert.SerializeObject(userProfile), Encode.UTF8, "application/json");
+            var res = httpClient.PostAsync("/api/v1/userprofile", content).Result;
+            var json = res.Content.ReadAsStringAsync().Result;
+            var results = JsonConvert.DeserializeObject<UserProfile>(json);
+            return GetUserProfile(userProfile.user);
+        }
     }
 
     public interface IRestServiceClient
