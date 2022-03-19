@@ -12,13 +12,15 @@
 /MyWork.Model/T4Template/RepositoryTemplate.cs
 *.user
 /MyWork.Model.UnitTest/obj/Debug
-/MyWork.Web/obj/Debug
 /packages
 /MyWork.Repository/obj/Debug
 /MyWork.Repository.UnitTest/obj/Debug
 /MyWork.Web/bin
+/MyWork.Web/obj/Debug
 /MyWork.WebAPI/bin
 /MyWork.WebAPI/obj/Debug
+/MyWork.Web.Tests/bin
+/MyWork.Web.Tests/obj/Debug
 /MyWork.Core/bin/Debug
 /MyWork.Model/bin/Debug
 /MyWork.Model.UnitTest/bin/Debug
@@ -30,3 +32,4 @@
 /MyWork.CommonService.UnitTest/obj/Debug
 /MyWork.Core.UnitTest/obj/Debug
 /MyWork.Service.RestClient/obj/Debug
+/MyWork.Web/Views/Hierarchy/Index - Copy.cshtml

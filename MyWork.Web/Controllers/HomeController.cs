@@ -7,7 +7,6 @@ using System.Web.Mvc;
 
 namespace MyWork.Web.Controllers
 {
-    //[ActionAuthorizeAttribute]
     public class HomeController : BaseController
     {
         public HomeController(IAuthorizeProvider p) : base(p)

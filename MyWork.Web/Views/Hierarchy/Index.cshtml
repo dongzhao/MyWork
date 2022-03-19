@@ -1,0 +1,66 @@
+﻿@model IEnumerable<MyWork.Web.Models.TreeListView>
+
+<script>
+    $(document).ready(function () {
+
+        $.fn.showTreeView = function (hierarchId) {
+            let clapseText = $('#spanToggleGraphTree_' + hierarchId).text();
+            if (clapseText === "+") {
+                let replaced = clapseText.Replace("+", "-");
+                $('#spanToggleGraphTree_' + hierarchId).text(replaced);
+                // start drawing tree
+                let divTree = "graph_" + hierarchId;
+                let treeData = TreeService.prototype.GetTreeUrl(hierarchId);
+                $.fn.drawingTree(treeData, divTree);
+            }
+            else {
+                let replaced = clapseText.Replace("-", "+");
+                $('#spanToggleGraphTree_' + hierarchId).text(replaced);
+
+            }
+        }
+    });
+</script>
+
+<div class="form-row">
+    <div class="col-md-6 text-left">
+        @Html.ActionLink("Home", "Index", "Home", new { }, null) -> User Account
+    </div>
+    <div class="col-md-6 text-right">
+        @Html.ActionLink("Edit Account", "EditProfile", "Home", new { @class = "btn btn-success" }, null)
+    </div>
+</div>
+
+<hr />
+
+<div class="container">
+
+    <div id="accordion" class="accordion">
+        @{ var row = 0;}
+        @foreach (var item in Model)
+        {
+            row++;
+            <div class="card mb-0">
+                <div class="card-header">
+                    <h5 class="mb-0">
+                        <button id="btnToggleGraphTree" type="button" onclick="$.fn.showTreeView('@item.Id')" class="btn btn-link"
+                                data-toggle="collapse" data-target="#collapse_@item.Id" aria-expanded="true" aria-controls="collapse_@item.Id">
+                            <span id="spanToggleGraphTree_@item.Id">+</span> &nbsp; @Html.DisplayFor(modelItem => item.Title) #@row
+                        </button>
+                        <span class="pull-right">
+                            <a href="@Url.Action("","", new {id = item.Id})">
+                                <img src="@Url.Content("~/Content/images/tree.png")" alt="View" title="View Details" width="16" height="16" />
+                            </a>
+                        </span>
+                    </h5>
+                </div>
+                <div id="collapse_@item.Id" class="card-body collapse hide" data-parent="#accordion">
+                    <div id="graph_@item.Id" width="960" height="800"></div>
+                </div>
+            </div>
+        }
+    </div>
+
+</div>
+
+

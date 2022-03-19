@@ -77,12 +77,12 @@ namespace MyWork.CommonService.tree
                 {
                     //type = "",
                     level = treeNode.level + 1,
-                    itemType = ((TreeNodeTypeEnum)child.HierachyType).ToString(),
+                    itemType = ((TreeNodeTypeEnum)child.HierarchyType).ToString(),
                     //itemValue = 10,
                     itemId = child.Id,
                     parentItemId = hierarchy.Id,
-                    items = ToItemList(child.HierachyItem),
-                    link = ToItem(child.LinkHierachyItem),
+                    items = ToItemList(child.HierarchyItem),
+                    link = ToItem(child.LinkHierarchyItem),
                     colour = StringEnumUtility.GetStringValue(TreeNodeColourEnum.ROOT),
                     activeItemId = child.Id != activeHierarchId ? 0 : activeHierarchId,
                 };

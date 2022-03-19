@@ -1,3 +1,10 @@
+/****** Object:  Schema [tree]    Script Date: 3/13/2022 1:24:26 PM ******/
+DROP SCHEMA [tree]
+GO
+
+/****** Object:  Schema [tree]    Script Date: 3/13/2022 1:24:26 PM ******/
+CREATE SCHEMA [tree]
+GO
 
 /****** Object: drop CONSTRAINT ******/
 ALTER TABLE [dbo].[my_user] DROP CONSTRAINT [FK_dbo.my_user_dbo.my_profile_UserProfileId];
@@ -5,6 +12,7 @@ ALTER TABLE [dbo].[user_role] DROP CONSTRAINT [FK_dbo.user_role_dbo.my_role_role
 ALTER TABLE [dbo].[user_role] DROP CONSTRAINT [FK_dbo.user_role_dbo.my_user_user_Id];
 ALTER TABLE [dbo].[role_permission] DROP CONSTRAINT [FK_dbo.role_permission_dbo.my_permission_permission_Id];
 ALTER TABLE [dbo].[role_permission] DROP CONSTRAINT [FK_dbo.role_permission_dbo.my_role_role_Id];
+ALTER TABLE [tree].[my_hierarchy] DROP CONSTRAINT [FK_tree.my_hierarchy_tree.my_hierarchy_ParentId];
 
 /****** Object: drop tables ******/
 DROP TABLE [dbo].[my_profile];
@@ -13,6 +21,7 @@ DROP TABLE [dbo].[user_role];
 DROP TABLE [dbo].[role_permission];
 DROP TABLE [dbo].[my_role];
 DROP TABLE [dbo].[my_permission];
+DROP TABLE [tree].[my_hierarchy];
 
 /****** Object: create tables schema ******/
 CREATE TABLE [dbo].[my_profile] (
@@ -62,6 +71,18 @@ CREATE TABLE [dbo].[role_permission] (
     CONSTRAINT [PK_dbo.role_permission] PRIMARY KEY CLUSTERED ([permission_Id] ASC, [role_Id] ASC), 
 );
 
+CREATE TABLE [tree].[my_hierarchy] (
+    [Id]               INT            IDENTITY (1, 1) NOT NULL,
+    [ParentId]         INT            NULL,
+    [Title]            NVARCHAR (MAX) NULL,
+    [HierachyType]     INT            NOT NULL,
+    [HierachyItem]     NVARCHAR (MAX) NULL,
+    [LinkHierachyItem] NVARCHAR (MAX) NULL,
+    [CreatedDateTime]  DATETIME       NOT NULL,
+    [CreatedBy]        NVARCHAR (MAX) NULL,
+	CONSTRAINT [PK_tree.my_hierarchy] PRIMARY KEY CLUSTERED ([Id] ASC)
+);
+
 /****** Object: add foreigh key ******/
 ALTER TABLE [dbo].[my_user] ADD CONSTRAINT [FK_dbo.my_user_dbo.my_profile_UserProfileId] FOREIGN KEY ([UserProfileId]) REFERENCES [dbo].[my_profile] ([Id]) ON DELETE CASCADE;
 ALTER TABLE [dbo].[user_role] ADD CONSTRAINT [FK_dbo.user_role_dbo.my_role_role_Id] FOREIGN KEY ([role_Id]) REFERENCES [dbo].[my_role] ([Id]) ON DELETE CASCADE;
@@ -69,12 +90,17 @@ ALTER TABLE [dbo].[user_role] ADD CONSTRAINT [FK_dbo.user_role_dbo.my_user_user_
 ALTER TABLE [dbo].[role_permission] ADD CONSTRAINT [FK_dbo.role_permission_dbo.my_permission_permission_Id] FOREIGN KEY ([permission_Id]) REFERENCES [dbo].[my_permission] ([Id]) ON DELETE CASCADE;
 ALTER TABLE [dbo].[role_permission] ADD CONSTRAINT [FK_dbo.role_permission_dbo.my_role_role_Id] FOREIGN KEY ([role_Id]) REFERENCES [dbo].[my_role] ([Id]) ON DELETE CASCADE;
 
+ALTER TABLE [tree].[my_hierarchy] ADD CONSTRAINT [FK_tree.my_hierarchy_tree.my_hierarchy_ParentId] FOREIGN KEY ([ParentId]) REFERENCES [tree].[my_hierarchy] ([Id]);
+
+
 /****** Object: create index ******/
 CREATE NONCLUSTERED INDEX [IX_UserProfileId] ON [dbo].[my_user]([UserProfileId] ASC);
 CREATE NONCLUSTERED INDEX [IX_role_permission_permission_Id] ON [dbo].[role_permission]([permission_Id] ASC);
 CREATE NONCLUSTERED INDEX [IX_role_permission_role_Id] ON [dbo].[role_permission]([role_Id] ASC);
 CREATE NONCLUSTERED INDEX [IX_user_role_role_Id] ON [dbo].[user_role]([role_Id] ASC);
 CREATE NONCLUSTERED INDEX [IX_user_role_user_Id] ON [dbo].[user_role]([user_Id] ASC);
+
+CREATE NONCLUSTERED INDEX [IX_ParentId] ON [tree].[my_hierarchy]([ParentId] ASC);
 
 /****** Object: add unique key ******/
 ALTER TABLE [dbo].[my_user] ADD CONSTRAINT [UQ_dbo.my_user.UserName] UNIQUE ([UserName]);

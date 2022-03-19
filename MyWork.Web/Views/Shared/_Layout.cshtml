@@ -21,7 +21,7 @@
 
 <body style="padding-top: 20px">
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-        @Html.ActionLink("MyWork", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        @Html.ActionLink("MyWork", "Index", "Home", null, new { @class = "navbar-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsHeader" aria-controls="navbarsHeader" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,10 +29,13 @@
         <div class="collapse navbar-collapse" id="navbarsHeader">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    @Html.ActionLink("Home", "Index", "Home", new { @class = "nav-link" })
+                    @Html.ActionLink("Home", "Index", "Home", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link disabled" href="#">Link 1</a>
+                    <a class="nav-link disabled" href="#">Link </a>
+                </li>
+                <li class="nav-item">
+                    @Html.ActionLink("Decision Tree", "Index", "Hierarchy", null, new { @class = "nav-link" })
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userPermissionDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

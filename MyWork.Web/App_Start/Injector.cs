@@ -32,12 +32,16 @@ namespace MyWork.Web.App_Start
             builder.RegisterType<RoleRepository>().As<IRoleRepository>();
             builder.RegisterType<PermissionRepository>().As<IPermissionRepository>();
             builder.RegisterType<UserProfileRepository>().As<IUserProfileRepository>();
-
+            builder.RegisterType<HierarchyRepository>().As<IHierarchyRepository>();
+           
             builder.RegisterType<UserProfileReportUsp>().As<IUserProfileReportUsp>();
 
             builder.RegisterGeneric(typeof(GenericRepository<,>)).As(typeof(IRepository<,>));
 
             builder.RegisterType<AuthorizeProvider>().As<IAuthorizeProvider>().InstancePerRequest();
+
+            
+            builder.RegisterType<HierarchyEditor>().As<IHierarchyEditor>();
 
             builder.RegisterModule<AutofacWebTypesModule>();
 

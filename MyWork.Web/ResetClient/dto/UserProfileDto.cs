@@ -12,7 +12,7 @@ namespace MyWork.Web
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public List<RoleDto> Roles { get; set; }
+        public List<RoleDto> Roles { get; set; } = new List<RoleDto>();
         public bool Equals(UserProfileDto x, UserProfileDto y)
         {
             if (x == null && y == null)
@@ -39,7 +39,7 @@ namespace MyWork.Web
     {
         public int RoleId { get; set; }
         public string RoleName { get; set; }
-        public List<PermissionDto> Permissions { get; set; }
+        public List<PermissionDto> Permissions { get; set; } = new List<PermissionDto>();
 
         public bool Equals(RoleDto x, RoleDto y)
         {
