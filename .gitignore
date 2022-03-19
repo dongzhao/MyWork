@@ -32,4 +32,6 @@
 /MyWork.CommonService.UnitTest/obj/Debug
 /MyWork.Core.UnitTest/obj/Debug
 /MyWork.Service.RestClient/obj/Debug
-/MyWork.Web/Views/Hierarchy/Index - Copy.cshtml
+/MyWork.CommonService/obj/Release
+/MyWork.Core/obj/Release
+/MyWork.Service.RestClient/obj/Release
